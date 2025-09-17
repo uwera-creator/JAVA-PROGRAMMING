@@ -1,0 +1,85 @@
+Question 2 
+Student Grading System 
+package grade;
+import java.util.Scanner;
+public class attendance {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+
+		        Scanner att = new Scanner(System.in);
+
+		        int marks;
+		        int totalStudents = 0;
+		        int passes = 0;
+		        int fails = 0;
+
+		        System.out.println("Enter student marks (0-100). Enter -1 to stop.");
+
+		        while (true) {
+		            System.out.print("Enter marks: ");
+		            marks = att.nextInt();
+
+		            if (marks == -1) {
+		                // Sentinel value to stop input
+		                break;
+		            }
+
+		            // Validate marks range
+		            if (marks < 0 || marks > 100) {
+		                System.out.println("Invalid marks. Please enter a value between 0 and 100.");
+		                continue; // Ask again without increasing counters
+		            }
+
+		            totalStudents++;
+
+		            // Assign grade
+		            char grade;
+		            if (marks >= 80) {
+		                grade = 'A';
+		            } else if (marks >= 70) {
+		                grade = 'B';
+		            } else if (marks >= 60) {
+		                grade = 'C';
+		            } else if (marks >= 50) {
+		                grade = 'D';
+		            } else {
+		                grade = 'F';
+		            }
+
+		            // Print grade immediately
+		            System.out.println("Grade: " + grade);
+
+		            // Track passes and fails
+		            if (marks >= 50) {
+		                passes++;
+		            } else {
+		                fails++;
+		            }
+		        }
+
+		        // Calculate pass rate percentage
+		        double passRate = 0.0;
+		        if (totalStudents > 0) {
+		            passRate = ((double) passes / totalStudents) * 100;
+		        }
+
+		        // Summary report
+		        System.out.println("\n===== Summary Report =====");
+		        System.out.println("Total students: " + totalStudents);
+		        System.out.println("Passed: " + passes);
+		        System.out.println("Failed: " + fails);
+		        System.out.println(passRate);
+
+		        att.close();
+		    }
+	
+
+
+	}
+
+
