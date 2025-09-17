@@ -1,0 +1,66 @@
+package attend;
+import java.util.Scanner;
+
+public class grade {
+    public static void main(String[] args) {
+        Scanner gg = new Scanner(System.in);
+
+        final int MAX_DAYS = 30;
+        int[] attendance = new int[MAX_DAYS];
+        int dayCount = 0;
+
+        System.out.print("Enter total number of students in the class: ");
+        int totalStudents = gg.nextInt();
+        gg.nextLine(); // consume newline
+
+        String choice = null;
+
+        // === Data Entry Loop ===
+        do {
+            if (dayCount >= MAX_DAYS) {
+                System.out.println("Maximum of 30 days reached.");
+                break;
+            }
+
+            System.out.print("Enter number of students present on Day " + (dayCount + 1) + ": ");
+            int present = gg.nextInt();
+            gg.nextLine(); // consume newline
+
+            if (present < 0 || present > totalStudents) {
+                System.out.println("Invalid number. Must be between 0 and " + totalStudents);
+                continue;
+            }
+
+            attendance[dayCount] = present;
+            dayCount++;
+
+            System.out.print("Do you want to enter attendance for another day? (yes/no): ");
+            choice = gg.nextLine().toLowerCase();
+        } while (choice.equals("yes"));
+
+        // === Report ===
+        System.out.println("\n===== Attendance Summary =====");
+        System.out.println("Day\tPresent");
+
+        int totalAttendance = 0;
+        int lowAttendanceDays = 0;
+
+        for (int i = 0; i < dayCount; i++) {
+            System.out.println((i + 1) + "\t" + attendance[i]);
+            totalAttendance += attendance[i];
+
+            if (attendance[i] < (totalStudents / 2.0)) {
+                lowAttendanceDays++;
+            }
+        }
+
+        double averageAttendance = (double) totalAttendance / dayCount;
+        double lowAttendancePercent = ((double) lowAttendanceDays / dayCount) * 100;
+
+        System.out.println("\nTotal days recorded: " + dayCount);
+        System.out.println("Average attendance: " + averageAttendance);
+        System.out.println("Days with attendance below 50%: " + lowAttendanceDays + " (" + lowAttendancePercent + "%)");
+
+        gg.close();
+    }
+}
